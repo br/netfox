@@ -18,7 +18,7 @@ let nfxVersion = "1.8"
 let nfxWillOpenNotification = "NFXWillOpenNotification"
 let nfxWillCloseNotification = "NFXWillCloseNotification"
 
-@objc
+@objcMembers
 open class NFX: NSObject
 {
     #if os(OSX)

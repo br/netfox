@@ -59,7 +59,7 @@ class NFXGenericController: NFXViewController
         return tempMutableString
     }
     
-    func reloadData()
+    @objc func reloadData()
     {
     }
 }
