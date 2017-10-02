@@ -246,7 +246,7 @@ extension NFX {
         navigationController!.navigationBar.isTranslucent = false
         navigationController!.navigationBar.tintColor = UIColor.NFXOrangeColor()
         navigationController!.navigationBar.barTintColor = UIColor.NFXStarkWhiteColor()
-        navigationController!.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName : UIColor.NFXOrangeColor()]
+        navigationController!.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor : UIColor.NFXOrangeColor()]
         
         presentingViewController?.present(navigationController!, animated: true, completion: nil)
     }
