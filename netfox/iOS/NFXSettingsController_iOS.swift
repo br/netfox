@@ -30,10 +30,13 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         self.edgesForExtendedLayout = UIRectEdge()
         self.extendedLayoutIncludesOpaqueBars = false
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage.NFXStatistics(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.statisticsButtonPressed)), UIBarButtonItem(image: UIImage.NFXInfo(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.infoButtonPressed))]
-        
-        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 60)
+
+        let statisticsBarButton = UIBarButtonItem(image: UIImage.NFXStatistics(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.statisticsButtonPressed))
+        let infoBarButton = UIBarButtonItem(image: UIImage.NFXInfo(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.infoButtonPressed))
+        self.navigationItem.rightBarButtonItems = [statisticsBarButton, infoBarButton]
+
+        let tableViewHeight: CGFloat = self.view.frame.height - 60
+        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: tableViewHeight)
         self.tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.tableView.translatesAutoresizingMaskIntoConstraints = true
         self.tableView.delegate = self
@@ -45,7 +48,9 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         self.view.addSubview(self.tableView)
         
         var nfxVersionLabel: UILabel
-        nfxVersionLabel = UILabel(frame: CGRect(x: 10, y: self.view.frame.height - 60, width: self.view.frame.width - 2*10, height: 30))
+        let nfxVersionLabelY: CGFloat = self.view.frame.height - 60
+        let nfxVersionLabelWidth: CGFloat = self.view.frame.width - 2*10
+        nfxVersionLabel = UILabel(frame: CGRect(x: 10, y: nfxVersionLabelY, width: nfxVersionLabelWidth, height: 30))
         nfxVersionLabel.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
         nfxVersionLabel.font = UIFont.NFXFont(size: 14)
         nfxVersionLabel.textColor = UIColor.NFXOrangeColor()
@@ -54,7 +59,9 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         self.view.addSubview(nfxVersionLabel)
         
         var nfxURLButton: UIButton
-        nfxURLButton = UIButton(frame: CGRect(x: 10, y: self.view.frame.height - 40, width: self.view.frame.width - 2*10, height: 30))
+        let nfxURLButtonY: CGFloat = self.view.frame.height - 40
+        let nfxURLButtonWidth: CGFloat = self.view.frame.width - 2*10
+        nfxURLButton = UIButton(frame: CGRect(x: 10, y: nfxURLButtonY, width: nfxURLButtonWidth, height: 30))
         nfxURLButton.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
         nfxURLButton.titleLabel?.font = UIFont.NFXFont(size: 12)
         nfxURLButton.setTitleColor(UIColor.NFXGray44Color(), for: .init())
