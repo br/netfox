@@ -11,7 +11,7 @@ import Foundation
 import UIKit
 
 
-@available(iOS 8.0, *)
+@available(iOS 11.0, *)
 class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating, UISearchControllerDelegate, DataCleaner
 {
     // MARK: Properties
@@ -27,13 +27,13 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
         
         self.edgesForExtendedLayout = UIRectEdge()
         self.extendedLayoutIncludesOpaqueBars = false
-        self.automaticallyAdjustsScrollViewInsets = false
         
         self.tableView.frame = self.view.frame
         self.tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.tableView.translatesAutoresizingMaskIntoConstraints = true
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.contentInsetAdjustmentBehavior = .never
         self.view.addSubview(self.tableView)
         
         self.tableView.register(NFXListCell.self, forCellReuseIdentifier: NSStringFromClass(NFXListCell.self))
@@ -59,21 +59,8 @@ class NFXListController_iOS: NFXListController, UITableViewDelegate, UITableView
         self.searchController.searchBar.tintColor = UIColor.NFXOrangeColor()
         self.searchController.searchBar.searchBarStyle = .minimal
         self.searchController.view.backgroundColor = UIColor.clear
-        
-        if #available(iOS 11.0, *) {
-            self.navigationItem.searchController = self.searchController
-        } else {
-            let searchView = UIView()
-            searchView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width - 60, height: 0)
-            searchView.autoresizingMask = [.flexibleWidth]
-            searchView.autoresizesSubviews = true
-            searchView.backgroundColor = UIColor.clear
-            searchView.addSubview(self.searchController.searchBar)
-            self.searchController.searchBar.sizeToFit()
-            searchView.frame = self.searchController.searchBar.frame
 
-            self.navigationItem.titleView = searchView
-        }
+        self.navigationItem.searchController = self.searchController
         
         NotificationCenter.default.addObserver(
             self,
