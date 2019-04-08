@@ -343,9 +343,9 @@ class NFXDebugInfo
         let session = URLSession.shared
         session.dataTask(with: req as URLRequest, completionHandler: { (data, response, error) in
             do {
-                let rawJsonData = try JSONSerialization.jsonObject(with: data!, options: [.allowFragments])
-                if let ipAddress = (rawJsonData as AnyObject).value(forKey: "ip") {
-                    completion(ipAddress as! String)
+                if let json = (try JSONSerialization.jsonObject(with: data!, options: [.allowFragments])) as? [String: Any],
+                   let ipAddress = json["ip"] as? String {
+                    completion(ipAddress)
                 } else {
                     completion("-")
                 }

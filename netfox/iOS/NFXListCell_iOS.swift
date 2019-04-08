@@ -91,25 +91,15 @@ class NFXListCell: UITableViewCell
     override func layoutSubviews()
     {
         super.layoutSubviews()
-        
-        self.statusView.frame = CGRect(x: 0, y: 0, width: 50, height: frame.height - 1)
-
-        self.requestTimeLabel.frame = CGRect(x: 0, y: 13, width: statusView.frame.width, height: 14)
-        
-        self.timeIntervalLabel.frame = CGRect(x: 0, y: requestTimeLabel.frame.maxY + 5, width: statusView.frame.width, height: 14)
-        
-        self.URLLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: 0, width: frame.width - URLLabel.frame.minX - 25 - padding, height: 40)
-        self.URLLabel.autoresizingMask = .flexibleWidth
-        
-        self.methodLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: URLLabel.frame.maxY - 2, width: 40, height: frame.height - URLLabel.frame.maxY - 2)
-
-        self.typeLabel.frame = CGRect(x: methodLabel.frame.maxX + padding, y: URLLabel.frame.maxY - 2, width: 180, height: frame.height - URLLabel.frame.maxY - 2)
-
-        self.circleView.frame = CGRect(x: self.URLLabel.frame.maxX + 5, y: 17, width: 8, height: 8)
-        
-        self.leftSeparator.frame = CGRect(x: 0, y: frame.height - 1, width: self.statusView.frame.width, height: 1)
-        self.rightSeparator.frame = CGRect(x: self.leftSeparator.frame.maxX, y: frame.height - 1, width: frame.width - self.leftSeparator.frame.maxX, height: 1)
-        
+        layoutStatusView()
+        layoutRequestTimeLabel()
+        layoutTimeIntervalLabel()
+        layoutURLLabel()
+        layoutMethodLabel()
+        layoutTypeLabel()
+        layoutCircleView()
+        layoutLeftSeparator()
+        layoutRightSeparator()        
     }
     
     func isNew()
@@ -186,6 +176,45 @@ class NFXListCell: UITableViewCell
         } else {
             self.isOld()
         }
+    }
+}
+
+private extension NFXListCell {
+    func layoutStatusView() {
+        self.statusView.frame = CGRect(x: 0, y: 0, width: 50, height: frame.height - 1)
+    }
+
+    func layoutRequestTimeLabel() {
+        self.requestTimeLabel.frame = CGRect(x: 0, y: 13, width: statusView.frame.width, height: 14)
+    }
+
+    func layoutTimeIntervalLabel() {
+        self.timeIntervalLabel.frame = CGRect(x: 0, y: requestTimeLabel.frame.maxY + 5, width: statusView.frame.width, height: 14)
+    }
+
+    func layoutURLLabel() {
+        self.URLLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: 0, width: frame.width - URLLabel.frame.minX - 25 - padding, height: 40)
+        self.URLLabel.autoresizingMask = .flexibleWidth
+    }
+
+    func layoutMethodLabel() {
+        self.methodLabel.frame = CGRect(x: statusView.frame.maxX + padding, y: URLLabel.frame.maxY - 2, width: 40, height: frame.height - URLLabel.frame.maxY - 2)
+    }
+
+    func layoutTypeLabel() {
+        self.typeLabel.frame = CGRect(x: methodLabel.frame.maxX + padding, y: URLLabel.frame.maxY - 2, width: 180, height: frame.height - URLLabel.frame.maxY - 2)
+    }
+
+    func layoutCircleView() {
+        self.circleView.frame = CGRect(x: self.URLLabel.frame.maxX + 5, y: 17, width: 8, height: 8)
+    }
+
+    func layoutLeftSeparator() {
+        self.leftSeparator.frame = CGRect(x: 0, y: frame.height - 1, width: self.statusView.frame.width, height: 1)
+    }
+
+    func layoutRightSeparator() {
+        self.rightSeparator.frame = CGRect(x: self.leftSeparator.frame.maxX, y: frame.height - 1, width: frame.width - self.leftSeparator.frame.maxX, height: 1)
     }
 }
 

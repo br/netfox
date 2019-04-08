@@ -46,31 +46,36 @@ class NFXStatisticsController: NFXGenericController
     {
         var tempString: String
         tempString = String()
-        
+
         tempString += "[Total requests] \n\(self.totalModels)\n\n"
-        
+
         tempString += "[Successful requests] \n\(self.successfulRequests)\n\n"
         tempString += "[Failed requests] \n\(self.failedRequests)\n\n"
-        
-        tempString += "[Total request size] \n\(Float(self.totalRequestSize/1024)) KB\n\n"
+
+        let totalRequestSize: Float = Float(self.totalRequestSize/1024)
+        tempString += "[Total request size] \n\(totalRequestSize) KB\n\n"
         if self.totalModels == 0 {
             tempString += "[Avg request size] \n0.0 KB\n\n"
         } else {
-            tempString += "[Avg request size] \n\(Float((self.totalRequestSize/self.totalModels)/1024)) KB\n\n"
+            let avgRequestSize: Float = Float((self.totalRequestSize/self.totalModels)/1024)
+            tempString += "[Avg request size] \n\(avgRequestSize) KB\n\n"
         }
-        
-        tempString += "[Total response size] \n\(Float(self.totalResponseSize/1024)) KB\n\n"
+
+        let totalResponseSize: Float = Float(self.totalResponseSize/1024)
+        tempString += "[Total response size] \n\(totalResponseSize) KB\n\n"
         if self.totalModels == 0 {
             tempString += "[Avg response size] \n0.0 KB\n\n"
         } else {
-            tempString += "[Avg response size] \n\(Float((self.totalResponseSize/self.totalModels)/1024)) KB\n\n"
+            let avgResponseSize: Float = Float((self.totalResponseSize/self.totalModels)/1024)
+            tempString += "[Avg response size] \n\(avgResponseSize) KB\n\n"
         }
 
         if self.totalModels == 0 {
             tempString += "[Avg response time] \n0.0s\n\n"
             tempString += "[Fastest response time] \n0.0s\n\n"
         } else {
-            tempString += "[Avg response time] \n\(Float(self.totalResponseTime/Float(self.totalModels)))s\n\n"
+            let avgResponseTime: Float = Float(self.totalResponseTime/Float(self.totalModels))
+            tempString += "[Avg response time] \n\(avgResponseTime)s\n\n"
             if self.fastestResponseTime == 999 {
                 tempString += "[Fastest response time] \n0.0s\n\n"
             } else {
