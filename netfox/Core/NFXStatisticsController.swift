@@ -41,43 +41,19 @@ class NFXStatisticsController: NFXGenericController
     
     var fastestResponseTime: Float = 999
     var slowestResponseTime: Float = 0
-    
-    func getReportString() -> NSAttributedString
-    {
+
+    func getReportString() -> NSAttributedString {
         var tempString: String
         tempString = String()
-        
+
         tempString += "[Total requests] \n\(self.totalModels)\n\n"
-        
+
         tempString += "[Successful requests] \n\(self.successfulRequests)\n\n"
         tempString += "[Failed requests] \n\(self.failedRequests)\n\n"
-        
-        tempString += "[Total request size] \n\(Float(self.totalRequestSize/1024)) KB\n\n"
-        if self.totalModels == 0 {
-            tempString += "[Avg request size] \n0.0 KB\n\n"
-        } else {
-            tempString += "[Avg request size] \n\(Float((self.totalRequestSize/self.totalModels)/1024)) KB\n\n"
-        }
-        
-        tempString += "[Total response size] \n\(Float(self.totalResponseSize/1024)) KB\n\n"
-        if self.totalModels == 0 {
-            tempString += "[Avg response size] \n0.0 KB\n\n"
-        } else {
-            tempString += "[Avg response size] \n\(Float((self.totalResponseSize/self.totalModels)/1024)) KB\n\n"
-        }
 
-        if self.totalModels == 0 {
-            tempString += "[Avg response time] \n0.0s\n\n"
-            tempString += "[Fastest response time] \n0.0s\n\n"
-        } else {
-            tempString += "[Avg response time] \n\(Float(self.totalResponseTime/Float(self.totalModels)))s\n\n"
-            if self.fastestResponseTime == 999 {
-                tempString += "[Fastest response time] \n0.0s\n\n"
-            } else {
-                tempString += "[Fastest response time] \n\(self.fastestResponseTime)s\n\n"
-            }
-        }
-        tempString += "[Slowest response time] \n\(self.slowestResponseTime)s\n\n"
+        tempString += requestSizeReportString()
+        tempString += responseSizeReportString()
+        tempString += responseTimeReportString()
 
         return formatNFXString(tempString)
     }
@@ -134,5 +110,44 @@ class NFXStatisticsController: NFXGenericController
     {
         clearStatistics()
         generateStatics()
+    }
+}
+
+private extension NFXStatisticsController {
+    func requestSizeReportString() -> String {
+        var tempString = "[Total request size] \n\(Float(self.totalRequestSize/1024)) KB\n\n"
+        if self.totalModels == 0 {
+            tempString += "[Avg request size] \n0.0 KB\n\n"
+        } else {
+            tempString += "[Avg request size] \n\(Float((self.totalRequestSize/self.totalModels)/1024)) KB\n\n"
+        }
+        return tempString
+    }
+
+    func responseSizeReportString() -> String {
+        var tempString = "[Total response size] \n\(Float(self.totalResponseSize/1024)) KB\n\n"
+        if self.totalModels == 0 {
+            tempString += "[Avg response size] \n0.0 KB\n\n"
+        } else {
+            tempString += "[Avg response size] \n\(Float((self.totalResponseSize/self.totalModels)/1024)) KB\n\n"
+        }
+        return tempString
+    }
+
+    func responseTimeReportString() -> String {
+        var tempString = ""
+        if self.totalModels == 0 {
+            tempString += "[Avg response time] \n0.0s\n\n"
+            tempString += "[Fastest response time] \n0.0s\n\n"
+        } else {
+            tempString += "[Avg response time] \n\(Float(self.totalResponseTime/Float(self.totalModels)))s\n\n"
+            if self.fastestResponseTime == 999 {
+                tempString += "[Fastest response time] \n0.0s\n\n"
+            } else {
+                tempString += "[Fastest response time] \n\(self.fastestResponseTime)s\n\n"
+            }
+        }
+        tempString += "[Slowest response time] \n\(self.slowestResponseTime)s\n\n"
+        return tempString
     }
 }
