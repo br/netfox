@@ -44,47 +44,47 @@ class NFXStatisticsController: NFXGenericController
     
     func getReportString() -> NSAttributedString
     {
-        var tempString: String
-        tempString = String()
+        let tempString = NSMutableString()
 
-        tempString += "[Total requests] \n\(self.totalModels)\n\n"
+        tempString.append("[Total requests] \n\(self.totalModels)\n\n")
 
-        tempString += "[Successful requests] \n\(self.successfulRequests)\n\n"
-        tempString += "[Failed requests] \n\(self.failedRequests)\n\n"
+        tempString.append("[Successful requests] \n\(self.successfulRequests)\n\n")
+        tempString.append("[Failed requests] \n\(self.failedRequests)\n\n")
 
         let totalRequestSize: Float = Float(self.totalRequestSize/1024)
-        tempString += "[Total request size] \n\(totalRequestSize) KB\n\n"
+        tempString.append("[Total request size] \n\(totalRequestSize) KB\n\n")
         if self.totalModels == 0 {
-            tempString += "[Avg request size] \n0.0 KB\n\n"
+            tempString.append("[Avg request size] \n0.0 KB\n\n")
         } else {
             let avgRequestSize: Float = Float((self.totalRequestSize/self.totalModels)/1024)
-            tempString += "[Avg request size] \n\(avgRequestSize) KB\n\n"
+            tempString.append("[Avg request size] \n\(avgRequestSize) KB\n\n")
         }
 
         let totalResponseSize: Float = Float(self.totalResponseSize/1024)
-        tempString += "[Total response size] \n\(totalResponseSize) KB\n\n"
+        tempString.append("[Total response size] \n\(totalResponseSize) KB\n\n")
         if self.totalModels == 0 {
-            tempString += "[Avg response size] \n0.0 KB\n\n"
+            tempString.append("[Avg response size] \n0.0 KB\n\n")
         } else {
             let avgResponseSize: Float = Float((self.totalResponseSize/self.totalModels)/1024)
-            tempString += "[Avg response size] \n\(avgResponseSize) KB\n\n"
+            tempString.append("[Avg response size] \n\(avgResponseSize) KB\n\n")
         }
 
         if self.totalModels == 0 {
-            tempString += "[Avg response time] \n0.0s\n\n"
-            tempString += "[Fastest response time] \n0.0s\n\n"
+            tempString.append("[Avg response time] \n0.0s\n\n")
+            tempString.append("[Fastest response time] \n0.0s\n\n")
         } else {
             let avgResponseTime: Float = Float(self.totalResponseTime/Float(self.totalModels))
-            tempString += "[Avg response time] \n\(avgResponseTime)s\n\n"
+            tempString.append("[Avg response time] \n\(avgResponseTime)s\n\n")
             if self.fastestResponseTime == 999 {
-                tempString += "[Fastest response time] \n0.0s\n\n"
+                tempString.append("[Fastest response time] \n0.0s\n\n")
             } else {
-                tempString += "[Fastest response time] \n\(self.fastestResponseTime)s\n\n"
+                tempString.append("[Fastest response time] \n\(self.fastestResponseTime)s\n\n")
             }
         }
-        tempString += "[Slowest response time] \n\(self.slowestResponseTime)s\n\n"
+        tempString.append("[Slowest response time] \n\(self.slowestResponseTime)s\n\n")
 
-        return formatNFXString(tempString)
+        let attributedString: NSAttributedString = formatNFXString(tempString as String)
+        return attributedString
     }
     
     func generateStatics()

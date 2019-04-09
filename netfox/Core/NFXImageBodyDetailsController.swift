@@ -26,9 +26,11 @@ class NFXImageBodyDetailsController: NFXGenericBodyDetailsController
         self.imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.imageView.contentMode = .scaleAspectFit
         let base64String: String = self.selectedModel.getResponseBody() as String
-        let data = Data.init(base64Encoded: base64String, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
+        let data: Data? = Data.init(base64Encoded: base64String, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
 
-        self.imageView.image = UIImage(data: data!)
+        if let data = data {
+            self.imageView.image = UIImage(data: data)
+        }
 
         self.view.addSubview(self.imageView)
         
