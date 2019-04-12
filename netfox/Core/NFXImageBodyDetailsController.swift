@@ -14,26 +14,24 @@ class NFXImageBodyDetailsController: NFXGenericBodyDetailsController
 {
     var imageView: UIImageView = UIImageView()
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.title = "Image preview"
-        
-        let width: CGFloat = self.view.frame.width - 2*10
-        let height: CGFloat = self.view.frame.height - 2*10
-        self.imageView.frame = CGRect(x: 10, y: 10, width: width, height: height)
-        self.imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.imageView.contentMode = .scaleAspectFit
-        let base64String: String = self.selectedModel.getResponseBody() as String
-        let data: Data? = Data.init(base64Encoded: base64String, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
+        title = "Image preview"
+        addImageView()
+    }
 
+    private func addImageView() {
+        let width: CGFloat = view.frame.width - 2*10
+        let height: CGFloat = view.frame.height - 2*10
+        imageView.frame = CGRect(x: 10, y: 10, width: width, height: height)
+        imageView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        imageView.contentMode = .scaleAspectFit
+        let base64String: String = selectedModel.getResponseBody() as String
+        let data = Data.init(base64Encoded: base64String, options: NSData.Base64DecodingOptions.ignoreUnknownCharacters)
         if let data = data {
-            self.imageView.image = UIImage(data: data)
+            imageView.image = UIImage(data: data)
         }
-
-        self.view.addSubview(self.imageView)
-        
+        view.addSubview(imageView)
     }
 }
 

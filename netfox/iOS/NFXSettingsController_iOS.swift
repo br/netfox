@@ -31,39 +31,10 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         self.extendedLayoutIncludesOpaqueBars = false
         
         self.navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage.NFXStatistics(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.statisticsButtonPressed)), UIBarButtonItem(image: UIImage.NFXInfo(), style: .plain, target: self, action: #selector(NFXSettingsController_iOS.infoButtonPressed))]
-        
-        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 60)
-        self.tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.tableView.translatesAutoresizingMaskIntoConstraints = true
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.alwaysBounceVertical = false
-        self.tableView.backgroundColor = UIColor.clear
-        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
-        self.tableView.tableFooterView?.isHidden = true
-        self.tableView.contentInsetAdjustmentBehavior = .never
-        self.view.addSubview(self.tableView)
-        
-        var nfxVersionLabel: UILabel
-        nfxVersionLabel = UILabel(frame: CGRect(x: 10, y: self.view.frame.height - 60, width: self.view.frame.width - 2*10, height: 30))
-        nfxVersionLabel.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        nfxVersionLabel.font = UIFont.NFXFont(size: 14)
-        nfxVersionLabel.textColor = UIColor.NFXOrangeColor()
-        nfxVersionLabel.textAlignment = .center
-        nfxVersionLabel.text = nfxVersionString
-        self.view.addSubview(nfxVersionLabel)
-        
-        var nfxURLButton: UIButton
-        nfxURLButton = UIButton(frame: CGRect(x: 10, y: self.view.frame.height - 40, width: self.view.frame.width - 2*10, height: 30))
-        nfxURLButton.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
-        nfxURLButton.titleLabel?.font = UIFont.NFXFont(size: 12)
-        nfxURLButton.setTitleColor(UIColor.NFXGray44Color(), for: .init())
-        nfxURLButton.titleLabel?.textAlignment = .center
-        nfxURLButton.setTitle(nfxURL, for: .init())
-        nfxURLButton.addTarget(self, action: #selector(NFXSettingsController_iOS.nfxURLButtonPressed), for: .touchUpInside)
-        self.view.addSubview(nfxURLButton)
-        
-        
+
+        addTableView()
+        addNfxVersionLabel()
+        addNfxUrlButton()
     }
     
     override func viewWillDisappear(_ animated: Bool)
@@ -301,6 +272,45 @@ class NFXSettingsController_iOS: NFXSettingsController, UITableViewDelegate, UIT
         self.dismiss(animated: true, completion: nil)
     }
     
+}
+
+private extension NFXSettingsController_iOS {
+    func addTableView() {
+        self.tableView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height - 60)
+        self.tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.tableView.translatesAutoresizingMaskIntoConstraints = true
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.alwaysBounceVertical = false
+        self.tableView.backgroundColor = UIColor.clear
+        self.tableView.tableFooterView = UIView(frame: CGRect.zero)
+        self.tableView.tableFooterView?.isHidden = true
+        self.tableView.contentInsetAdjustmentBehavior = .never
+        self.view.addSubview(self.tableView)
+    }
+
+    func addNfxVersionLabel() {
+        var nfxVersionLabel: UILabel
+        nfxVersionLabel = UILabel(frame: CGRect(x: 10, y: self.view.frame.height - 60, width: self.view.frame.width - 2*10, height: 30))
+        nfxVersionLabel.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        nfxVersionLabel.font = UIFont.NFXFont(size: 14)
+        nfxVersionLabel.textColor = UIColor.NFXOrangeColor()
+        nfxVersionLabel.textAlignment = .center
+        nfxVersionLabel.text = nfxVersionString
+        self.view.addSubview(nfxVersionLabel)
+    }
+
+    func addNfxUrlButton() {
+        var nfxURLButton: UIButton
+        nfxURLButton = UIButton(frame: CGRect(x: 10, y: self.view.frame.height - 40, width: self.view.frame.width - 2*10, height: 30))
+        nfxURLButton.autoresizingMask = [.flexibleTopMargin, .flexibleWidth]
+        nfxURLButton.titleLabel?.font = UIFont.NFXFont(size: 12)
+        nfxURLButton.setTitleColor(UIColor.NFXGray44Color(), for: .init())
+        nfxURLButton.titleLabel?.textAlignment = .center
+        nfxURLButton.setTitle(nfxURL, for: .init())
+        nfxURLButton.addTarget(self, action: #selector(NFXSettingsController_iOS.nfxURLButtonPressed), for: .touchUpInside)
+        self.view.addSubview(nfxURLButton)
+    }
 }
 
 #endif
