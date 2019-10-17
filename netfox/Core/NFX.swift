@@ -98,7 +98,7 @@ open class NFX: NSObject
         print("netfox \(nfxVersion) - [https://github.com/kasketis/netfox]: \(msg)")
     }
     
-    internal func isEnabled() -> Bool
+    public func isEnabled() -> Bool
     {
         return self.enabled
     }
